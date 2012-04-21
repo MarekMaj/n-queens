@@ -1,26 +1,30 @@
+package nqueens.domain;
+
 public class Board {
 
-    private int N;                    //size of the problem, board NxN
+    private int size;                    //size of the problem, board NxN
     private int[] cols;
     private int[] rows;
-    private int noOfQueens;         //queens currently placed on the board
+    private int queensPlacedOnTheBoard = 0;         //queens currently placed on the board
 
-    public Board(int n) {
-        N = n;
-        cols = new int[N];
-        rows = new int[N];
+    public Board(int size) {
+        this.size = size;
+        cols = new int[size];
+        rows = new int[size];
 
-        for (int i = 0; i < N; ++i) {
-            cols[i] = N;
-            rows[i] = N;
+        for (int i = 0; i < size; ++i) {
+            cols[i] = size;
+            rows[i] = size;
         }
+    }
 
-        noOfQueens = 0;
+    public int getSize() {
+        return size;
     }
 
     public void showBoard() {
-        for (int i = 0; i < N; ++i) {
-            for (int j = 0; j < N; ++j) {
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < size; ++j) {
                 if (cols[j] == i)
                     System.out.print("Q");
                 else
@@ -32,27 +36,26 @@ public class Board {
     }
 
     public boolean isSolved() {
-        return noOfQueens == N;
+        return queensPlacedOnTheBoard == size;
     }
 
     public void placeQueen(int col, int row) {
         cols[col] = row;
         rows[row] = col;
-        ++noOfQueens;
+        ++queensPlacedOnTheBoard;
     }
 
     public void removeQueen(int col, int row) {
-        cols[col] = N;
-        rows[row] = N;
-        --noOfQueens;
+        cols[col] = size;
+        rows[row] = size;
+        --queensPlacedOnTheBoard;
     }
 
 
     public boolean isQueenAllowed(int col, int row) {
-        if (col >= N || col < 0 || row >= N || row < 0 || !isColumnEmpty(col) || !isRowEmpty(row))
-            return false;
+        if (isFieldDisallowed(col, row)) return false;
 
-        for (int rad = 1; rad < N; ++rad) {
+        for (int rad = 1; rad < size; ++rad) {
             if (doesCellContainQueen(col - rad, row - rad) ||
                     doesCellContainQueen(col - rad, row + rad) ||
                     doesCellContainQueen(col + rad, row - rad) ||
@@ -62,28 +65,34 @@ public class Board {
         return true;
     }
 
+    private boolean isFieldDisallowed(int col, int row) {
+        if (col >= size || col < 0 || row >= size || row < 0 || !isColumnEmpty(col) || !isRowEmpty(row))
+            return true;
+        return false;
+    }
+
     /**
      * @param col - column index
      * @return number of rows for selected column where queen placing is allowed
      */
     public int noOfFreeRows(int col) {
         int res = 0;
-        for (int i = 0; i < N; ++i)
+        for (int i = 0; i < size; ++i)
             if (isQueenAllowed(col, i))
                 ++res;
         return res;
     }
 
     public boolean isColumnEmpty(int col) {
-        return cols[col] == N;
+        return cols[col] == size;
     }
 
     private boolean isRowEmpty(int row) {
-        return rows[row] == N;
+        return rows[row] == size;
     }
 
     private boolean doesCellContainQueen(int col, int row) {
-        if (col < N && col > -1 && row < N && row > -1 && cols[col] == row)
+        if (col < size && col > -1 && row < size && row > -1 && cols[col] == row)
             return true;
         return false;
     }
