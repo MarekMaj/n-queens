@@ -1,0 +1,7 @@
+This is a simple swing application for solving n-queens problem.
+Basically, simple backtracking algorithm for this Constraint Satisfaction Problem has been introduced.
+Additionally few heuristics has been implemented.
+
+Authors:
+Marek Maj
+Krzysztof Korbacz
