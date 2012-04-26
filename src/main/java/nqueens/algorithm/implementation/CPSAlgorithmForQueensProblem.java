@@ -4,7 +4,7 @@ import nqueens.algorithm.api.ColumnChoiceHeuristic;
 import nqueens.algorithm.api.QueensProblemAlgorithm;
 import nqueens.domain.Board;
 
-public class CVSAlgorithmForQueensProblem implements QueensProblemAlgorithm {
+public class CPSAlgorithmForQueensProblem implements QueensProblemAlgorithm {
     private Board board;
     private int MAX = Integer.MAX_VALUE; 		//auxiliary variable corresponding an infinite number
 
@@ -13,12 +13,12 @@ public class CVSAlgorithmForQueensProblem implements QueensProblemAlgorithm {
     private long calculationTime;
     private int recursionSteps;
 
-    public CVSAlgorithmForQueensProblem(Board board){
+    public CPSAlgorithmForQueensProblem(Board board){
         this.board = board;
         this.columnChoiceHeuristic = new BruteForce();
     }
 
-    public CVSAlgorithmForQueensProblem(Board board, ColumnChoiceHeuristic columnChoiceHeuristic){
+    public CPSAlgorithmForQueensProblem(Board board, ColumnChoiceHeuristic columnChoiceHeuristic){
         this.board = board;
         this.columnChoiceHeuristic = columnChoiceHeuristic;
     }
@@ -43,13 +43,8 @@ public class CVSAlgorithmForQueensProblem implements QueensProblemAlgorithm {
         return recursionSteps;
     }
 
-    public void showBoard(){
-        board.showBoard();
-    }
-
-    public void showStats(){
-        System.out.println("Time of calculations: " + String.valueOf(getCalculationTimeInMilliseconds()) + " [ms]");
-        System.out.println("Recursion steps:      " + String.valueOf(getNumberOfRecursionSteps()));
+    public Board getBoard() {
+        return board;
     }
 
     private int getEmptyColumn(){

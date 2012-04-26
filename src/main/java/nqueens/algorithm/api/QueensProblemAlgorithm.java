@@ -1,5 +1,7 @@
 package nqueens.algorithm.api;
 
+import nqueens.domain.Board;
+
 public interface QueensProblemAlgorithm {
 
     /**
@@ -10,4 +12,5 @@ public interface QueensProblemAlgorithm {
     public boolean run();
     public long getCalculationTimeInMilliseconds();
     public int getNumberOfRecursionSteps();
+    public Board getBoard();
 }

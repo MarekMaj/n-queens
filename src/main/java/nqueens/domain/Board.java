@@ -22,19 +22,6 @@ public class Board {
         return size;
     }
 
-    public void showBoard() {
-        for (int i = 0; i < size; ++i) {
-            for (int j = 0; j < size; ++j) {
-                if (cols[j] == i)
-                    System.out.print("Q");
-                else
-                    System.out.print(".");
-            }
-            System.out.println("");
-        }
-        System.out.println("");
-    }
-
     public boolean isSolved() {
         return queensPlacedOnTheBoard == size;
     }
@@ -56,10 +43,10 @@ public class Board {
         if (isFieldDisallowed(col, row)) return false;
 
         for (int rad = 1; rad < size; ++rad) {
-            if (doesCellContainQueen(col - rad, row - rad) ||
-                    doesCellContainQueen(col - rad, row + rad) ||
-                    doesCellContainQueen(col + rad, row - rad) ||
-                    doesCellContainQueen(col + rad, row + rad))
+            if (isCellContainQueen(col - rad, row - rad) ||
+                    isCellContainQueen(col - rad, row + rad) ||
+                    isCellContainQueen(col + rad, row - rad) ||
+                    isCellContainQueen(col + rad, row + rad))
                 return false;
         }
         return true;
@@ -91,7 +78,7 @@ public class Board {
         return rows[row] == size;
     }
 
-    private boolean doesCellContainQueen(int col, int row) {
+    public boolean isCellContainQueen(int col, int row) {
         if (col < size && col > -1 && row < size && row > -1 && cols[col] == row)
             return true;
         return false;
